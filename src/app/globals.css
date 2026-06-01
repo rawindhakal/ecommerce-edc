@@ -1,26 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ───── Pink Luxury Palette ─────
+     Primary  #EC4899  hot pink
+     Blush    #F9A8D4  soft pink
+     Lavender #8B5CF6  accent
+     BG       #FDF2F8  pink mist
+     Wine     #831843  deep foreground
+     Border   #FBCFE8  petal
+  */
+  --background: oklch(0.985 0.012 350);
+  --foreground: oklch(0.30 0.12 357);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.30 0.12 357);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.30 0.12 357);
+  --primary: oklch(0.65 0.22 354);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.82 0.11 350);
+  --secondary-foreground: oklch(0.36 0.13 357);
+  --muted: oklch(0.965 0.015 345);
+  --muted-foreground: oklch(0.52 0.08 350);
+  --accent: oklch(0.62 0.21 295);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.60 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.90 0.05 350);
+  --input: oklch(0.90 0.05 350);
+  --ring: oklch(0.65 0.22 354);
+  --radius: 0.875rem;
+
+  /* Charts — pink family + complements */
+  --chart-1: oklch(0.65 0.22 354);
+  --chart-2: oklch(0.82 0.11 350);
+  --chart-3: oklch(0.62 0.21 295);
+  --chart-4: oklch(0.75 0.15 30);
+  --chart-5: oklch(0.70 0.14 200);
+
+  /* Admin sidebar — deep plum (on-brand, still dark for contrast) */
+  --sidebar: oklch(0.22 0.07 350);
+  --sidebar-foreground: oklch(0.94 0.02 345);
+  --sidebar-primary: oklch(0.70 0.20 354);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.30 0.09 352);
+  --sidebar-accent-foreground: oklch(0.96 0.02 345);
+  --sidebar-border: oklch(0.32 0.08 352);
+  --sidebar-ring: oklch(0.70 0.20 354);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in oklch, var(--ring) 50%, transparent);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+  ::selection {
+    background: oklch(0.65 0.22 354 / 0.22);
+    color: oklch(0.30 0.12 357);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .font-display { font-family: 'Playfair Display', serif; }
+
+  /* ───── Glassmorphism (store) ───── */
+  .glass {
+    background: rgba(255, 251, 253, 0.72);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
+  .glass-pink {
+    background: linear-gradient(135deg, rgba(252,231,243,0.65), rgba(255,255,255,0.45));
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(249, 168, 212, 0.45);
+  }
+
+  /* ───── Admin clean card ───── */
+  .admin-card {
+    background: #ffffff;
+    border: 1px solid oklch(0.92 0.03 350);
+    border-radius: 0.875rem;
+    box-shadow: 0 1px 3px rgba(236,72,153,.05), 0 1px 2px rgba(0,0,0,.03);
+  }
+
+  /* ───── Pink brand gradient (kept legacy class names) ───── */
+  .rose-gold-gradient {
+    background: linear-gradient(135deg, #F472B6 0%, #EC4899 45%, #DB2777 100%);
+  }
+  .rose-gold-text {
+    background: linear-gradient(120deg, #EC4899 0%, #DB2777 40%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .pink-gradient {
+    background: linear-gradient(135deg, #F9A8D4 0%, #EC4899 50%, #BE185D 100%);
+  }
+  .pink-glow {
+    box-shadow: 0 10px 40px -10px rgba(236, 72, 153, 0.45);
+  }
+  .pink-glow-sm {
+    box-shadow: 0 6px 20px -6px rgba(236, 72, 153, 0.40);
+  }
+
+  /* ───── Dreamy mesh background for store ───── */
+  .luxury-gradient {
+    background-color: #FDF2F8;
+    background-image:
+      radial-gradient(at 12% 18%, rgba(249,168,212,0.55) 0px, transparent 55%),
+      radial-gradient(at 85% 12%, rgba(236,72,153,0.18) 0px, transparent 50%),
+      radial-gradient(at 78% 82%, rgba(139,92,246,0.16) 0px, transparent 50%),
+      radial-gradient(at 25% 88%, rgba(251,207,232,0.55) 0px, transparent 55%);
+  }
+  .mesh-hero {
+    background-image:
+      radial-gradient(at 18% 22%, rgba(236,72,153,0.22) 0px, transparent 50%),
+      radial-gradient(at 82% 18%, rgba(139,92,246,0.16) 0px, transparent 45%),
+      radial-gradient(at 65% 90%, rgba(249,168,212,0.40) 0px, transparent 50%);
+  }
+
+  /* ───── Decorative ───── */
+  .text-shadow-soft { text-shadow: 0 2px 20px rgba(236,72,153,0.15); }
+
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  /* ───── Animations ───── */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(3deg); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
+  .animate-pulse-glow { animation: pulse-glow 5s ease-in-out infinite; }
+  .animate-fade-up { animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+
+/* Pink scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: oklch(0.96 0.015 345); }
+::-webkit-scrollbar-thumb { background: linear-gradient(#F472B6, #EC4899); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #DB2777; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-float-slow, .animate-pulse-glow, .animate-fade-up {
+    animation: none !important;
+  }
+}
+
+/* ─── Thermal Print (80mm) ─── */
+@media print {
+  .no-print { display: none !important; }
+  @page { size: 80mm auto; margin: 0; }
+  body {
+    width: 80mm;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    color: #000;
+    background: #fff;
+  }
+  body > * { display: none !important; }
+  .thermal-receipt,
+  .thermal-print-only { display: block !important; }
+  .thermal-receipt {
+    width: 72mm;
+    padding: 4mm;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  .thermal-receipt .t-center { text-align: center; }
+  .thermal-receipt .t-bold   { font-weight: bold; }
+  .thermal-receipt .t-large  { font-size: 14px; font-weight: bold; }
+  .thermal-receipt .t-small  { font-size: 10px; }
+  .thermal-receipt .t-hr     { border-top: 1px dashed #000; margin: 3px 0; }
+  .thermal-receipt .t-row    { display: flex; justify-content: space-between; }
+  .thermal-receipt .t-total  { font-size: 13px; font-weight: bold; }
 }
